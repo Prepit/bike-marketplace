@@ -434,14 +434,24 @@
     </button>
 
     <div class="note">
-      The listing button is not connected yet — we'll connect it next.
+      Your listing will be published to Bike Marketplace.
     </div>
 
   </form>
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+  const SUPABASE_URL = https://hizvbwpvrlbizrizomkq.supabase.co;
+  const SUPABASE_KEY = sb_publishable_2LzLQOPFHcTu2QZjKurzjA_n0BgIzCm;
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
   function photoAdded(input, number) {
     if (input.files && input.files[0]) {
       const box = document.getElementById("photo-box-" + number);
@@ -451,6 +461,81 @@
       numberCircle.textContent = "✓";
     }
   }
+
+  document
+    .querySelector(".publish-button")
+    .addEventListener("click", async function () {
+
+      const brand = document.getElementById("brand").value.trim();
+      const model = document.getElementById("model").value.trim();
+      const year = document.getElementById("year").value;
+      const size = document.getElementById("size").value.trim();
+      const condition = document.getElementById("condition").value;
+      const usage = document.getElementById("usage").value;
+      const storage = document.getElementById("storage").value;
+      const service = document.getElementById("service").value;
+      const modifications = document
+        .getElementById("modifications")
+        .value
+        .trim();
+
+      const description = document
+        .getElementById("description")
+        .value
+        .trim();
+
+      const price = document.getElementById("price").value;
+
+      if (!brand || !condition || !price) {
+        alert("Please enter brand, condition and asking price.");
+        return;
+      }
+
+      const button = document.querySelector(".publish-button");
+
+      button.disabled = true;
+      button.textContent = "Listing bike...";
+
+      const { data, error } = await supabaseClient
+        .from("bike_listings")
+        .insert([
+          {
+            brand: brand,
+            model: model || null,
+            year: year ? Number(year) : null,
+            size: size || null,
+            asking_price: Number(price),
+            condition: condition,
+            usage_frequency: usage || null,
+            storage_location: storage || null,
+            service_history: service || null,
+            modifications: modifications || null,
+            description: description || null,
+            status: "available"
+          }
+        ])
+        .select();
+
+      if (error) {
+        console.error(error);
+
+        alert(
+          "Something went wrong while listing the bike.\n\n" +
+          error.message
+        );
+
+        button.disabled = false;
+        button.textContent = "List my bike";
+
+        return;
+      }
+
+      alert("Your bike has been listed!");
+
+      console.log(data);
+
+      window.location.href = "index.html";
+    });
 </script>
 
 </body>
