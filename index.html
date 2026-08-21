@@ -240,36 +240,9 @@
     <section class="section">
       <h2>Recently listed</h2>
 
-      <div class="bike-grid">
-
-        <div class="bike-card">
-          <div class="bike-image">Bike photo</div>
-          <div class="bike-info">
-            <h3>Kona Cinder Cone</h3>
-            <div class="bike-meta">Size M · Used · Auckland</div>
-            <div class="price">$450</div>
-          </div>
-        </div>
-
-        <div class="bike-card">
-          <div class="bike-image">Bike photo</div>
-          <div class="bike-info">
-            <h3>Specialized Rockhopper</h3>
-            <div class="bike-meta">Size L · Good · Wellington</div>
-            <div class="price">$350</div>
-          </div>
-        </div>
-
-        <div class="bike-card">
-          <div class="bike-image">Bike photo</div>
-          <div class="bike-info">
-            <h3>Trek Domane AL</h3>
-            <div class="bike-meta">Size 54 · Excellent · Christchurch</div>
-            <div class="price">$1,100</div>
-          </div>
-        </div>
-
-      </div>
+      <div class="bike-grid" id="bike-grid">
+  <p>Loading bikes...</p>
+</div>
     </section>
 
     <section class="why">
@@ -309,6 +282,78 @@
   <footer>
     Bike Marketplace NZ — Prototype
   </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = "https://hizvbwpvrlbizrizomkq.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_2LzLQOPFHcTu2QZjKurzjA_n0BgIzCm";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function loadBikes() {
+    const bikeGrid = document.getElementById("bike-grid");
+
+    const { data, error } = await supabaseClient
+      .from("bike_listings")
+      .select("*")
+      .eq("status", "available")
+      .order("created_at", { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error(error);
+      bikeGrid.innerHTML = "<p>Could not load bikes.</p>";
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      bikeGrid.innerHTML = "<p>No bikes listed yet.</p>";
+      return;
+    }
+
+    bikeGrid.innerHTML = "";
+
+    data.forEach(function (bike) {
+      const name =
+        bike.brand + (bike.model ? " " + bike.model : "");
+
+      const size =
+        bike.size ? "Size " + bike.size : "Size unknown";
+
+      const condition =
+        bike.condition || "Condition unknown";
+
+      const price =
+        Number(bike.asking_price).toLocaleString("en-NZ");
+
+      const card = document.createElement("div");
+      card.className = "bike-card";
+
+      card.innerHTML = `
+        <div class="bike-image">Bike photo</div>
+        <div class="bike-info">
+          <h3>${escapeHtml(name)}</h3>
+          <div class="bike-meta">
+            ${escapeHtml(size)} · ${escapeHtml(condition)}
+          </div>
+          <div class="price">$${price}</div>
+        </div>
+      `;
+
+      bikeGrid.appendChild(card);
+    });
+  }
+
+  function escapeHtml(value) {
+    const div = document.createElement("div");
+    div.textContent = value || "";
+    return div.innerHTML;
+  }
+
+  loadBikes();
+</script>
 </body>
 </html>
