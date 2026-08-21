@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Bike Marketplace NZ</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f7f5;
+      color: #1f1f1f;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #dddddd;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .sell-button {
+      background: #1f6f4a;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero {
+      padding: 90px 6%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 54px;
+      max-width: 750px;
+      margin-bottom: 18px;
+      line-height: 1.05;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 650px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .hero-buttons {
+      margin-top: 32px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .primary-button {
+      background: #1f6f4a;
+      color: white;
+    }
+
+    .secondary-button {
+      background: white;
+      color: #222;
+      border: 1px solid #cccccc;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 6% 80px;
+    }
+
+    .section h2 {
+      font-size: 30px;
+      margin-bottom: 24px;
+    }
+
+    .bike-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .bike-card {
+      background: white;
+      border: 1px solid #dddddd;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .bike-image {
+      background: #e7e7e2;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #777;
+      font-size: 16px;
+    }
+
+    .bike-info {
+      padding: 18px;
+    }
+
+    .bike-info h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+    }
+
+    .bike-meta {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .why {
+      background: #e9f2ec;
+      padding: 70px 6%;
+    }
+
+    .why-inner {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .why h2 {
+      font-size: 34px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .feature {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+    }
+
+    footer {
+      padding: 35px 6%;
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      nav a {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .hero h1 {
+        font-size: 39px;
+      }
+
+      .bike-grid,
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Bike Marketplace</div>
+
+    <nav>
+      <a href="#">Browse bikes</a>
+      <a href="#">How it works</a>
+      <a href="#">Sign in</a>
+      <a href="#" class="sell-button">Sell a bike</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <h1>Buy better bikes. Sell with confidence.</h1>
+
+      <p>
+        A New Zealand marketplace for used bicycles with better photos,
+        clearer information and community-powered bike knowledge.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#" class="primary-button">Browse bikes</a>
+        <a href="#" class="secondary-button">Sell your bike</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Recently listed</h2>
+
+      <div class="bike-grid">
+
+        <div class="bike-card">
+          <div class="bike-image">Bike photo</div>
+          <div class="bike-info">
+            <h3>Kona Cinder Cone</h3>
+            <div class="bike-meta">Size M · Used · Auckland</div>
+            <div class="price">$450</div>
+          </div>
+        </div>
+
+        <div class="bike-card">
+          <div class="bike-image">Bike photo</div>
+          <div class="bike-info">
+            <h3>Specialized Rockhopper</h3>
+            <div class="bike-meta">Size L · Good · Wellington</div>
+            <div class="price">$350</div>
+          </div>
+        </div>
+
+        <div class="bike-card">
+          <div class="bike-image">Bike photo</div>
+          <div class="bike-info">
+            <h3>Trek Domane AL</h3>
+            <div class="bike-meta">Size 54 · Excellent · Christchurch</div>
+            <div class="price">$1,100</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="why">
+      <div class="why-inner">
+
+        <h2>A better way to buy used bikes</h2>
+
+        <div class="features">
+
+          <div class="feature">
+            <h3>Standardised photos</h3>
+            <p>
+              Every seller is guided to photograph the important parts of the bike.
+            </p>
+          </div>
+
+          <div class="feature">
+            <h3>Better bike information</h3>
+            <p>
+              Size, condition, usage, modifications and service history are easy to compare.
+            </p>
+          </div>
+
+          <div class="feature">
+            <h3>Community knowledge</h3>
+            <p>
+              Experienced riders can help identify models, parts and incorrect information.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Bike Marketplace NZ — Prototype
+  </footer>
+
+</body>
+</html>
